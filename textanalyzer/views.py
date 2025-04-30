@@ -16,7 +16,7 @@ import textwrap
 from PyDictionary import PyDictionary
 from textblob import TextBlob
 import random
-from gingerit.gingerit import GingerIt
+import language_tool_python
 from pyyoutube import Api
 from .models import *
 from xhtml2pdf import pisa
@@ -498,9 +498,8 @@ def analyze(request):
         }
         
     elif Grammar=="grammar":
-        parser = GingerIt()
-        result = parser.parse(djText)
-        final=result["result"]
+        tool = language_tool_python.LanguageToolPublicAPI('en-US')
+        final = tool.correct(djText)
 
         if final=='':
             final="Please write some text to check grammar"
